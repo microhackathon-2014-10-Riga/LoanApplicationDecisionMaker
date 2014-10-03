@@ -34,10 +34,10 @@ class EverythingDoer {
         return result
     }
 
-    private String propagateToMarketing(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
+    private String propagateToReporting(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
         serviceRestClient.forService("reporting-service")
                 .post()
-                .onUrl("/marketing/$applicationId")
+                .onUrl("/reporting")
                 .body("""{
                     "loanId" : "$applicationId}",
                     "job" : "${loanApplicationInfo.job}",
@@ -49,10 +49,10 @@ class EverythingDoer {
                 .ofType(String)
     }
 
-    private String propagateToReporting(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
+    private String propagateToMarketing(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
         serviceRestClient.forService("marketing-offer-generator")
                 .post()
-                .onUrl("/reporting")
+                .onUrl("/marketing/$applicationId")
                 .body("""{
                         "person" : {
                         "firstName" : "${loanApplicationInfo.firstName}",
