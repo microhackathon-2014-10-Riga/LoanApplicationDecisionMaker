@@ -20,7 +20,7 @@ class EverythingDoer {
         this.decisionResultRepository = decisionResultRepository
     }
 
-    boolean doTheJob(LoanApplicationParams loanApplicationInfo, Long applicationId) {
+    boolean doTheJob(LoanApplicationParams loanApplicationInfo, String applicationId) {
         boolean result = !rules.any({ rule -> !rule.canApply(loanApplicationInfo) })
         DecisionResult decisionResult = decisionResultRepository.findByApplicationId(applicationId)
         if (decisionResult != null) {
@@ -34,7 +34,7 @@ class EverythingDoer {
         return result
     }
 
-    private String propagateToReporting(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
+    private String propagateToReporting(String applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
         serviceRestClient.forService("reporting-service")
                 .post()
                 .onUrl("/reporting")

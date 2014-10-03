@@ -1,11 +1,16 @@
 package com.ofg.decisionmaker.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "DECISION_RESULTS")
@@ -14,7 +19,7 @@ import javax.persistence.*;
 @BatchSize(size = 10)
 public class DecisionResult {
 
-    private Long applicationId;
+    private String applicationId;
 
     private Boolean result;
 
@@ -39,13 +44,11 @@ public class DecisionResult {
         this.result = result;
     }
 
-    public Long getApplicationId() {
-        return applicationId;
-    }
+	public String getApplicationId() {
+		return applicationId;
+	}
 
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
-    }
-
-
+	public void setApplicationId(String applicationId) {
+		this.applicationId = applicationId;
+	}
 }

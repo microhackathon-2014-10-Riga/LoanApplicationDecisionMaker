@@ -41,7 +41,7 @@ class DecisionController {
             produces = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Deciding if an applicaton is risky or not",
             notes = "Will check deciding whether an applicaton is risky or not ")
-    void decide(@PathVariable @NotNull Long loanApplicationId, @RequestBody @NotNull LoanApplicationParams applicationInfo) {
+    void decide(@PathVariable @NotNull String loanApplicationId, @RequestBody @NotNull LoanApplicationParams applicationInfo) {
         boolean result = everythinDoer.doTheJob(applicationInfo, loanApplicationId)
         if (applicationInfo.firstName) {
             januszProbabilityMetrics.update(true)
@@ -59,7 +59,7 @@ class DecisionController {
             produces = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "the same as above",
             notes = "but better ")
-    DecisionResult checkDecision(@PathVariable @NotNull Long loanApplicationId) {
+    DecisionResult checkDecision(@PathVariable @NotNull String loanApplicationId) {
 
         DecisionResult result = everythinDoer.checkDecision(loanApplicationId)
 

@@ -3,6 +3,6 @@ import org.springframework.data.repository.CrudRepository
 
 interface DecisionResultRepository extends CrudRepository<DecisionResult, Long> {
 
-    DecisionResult findByApplicationId(Long applicationId);
+    DecisionResult findByApplicationId(String applicationId);
 
 }
