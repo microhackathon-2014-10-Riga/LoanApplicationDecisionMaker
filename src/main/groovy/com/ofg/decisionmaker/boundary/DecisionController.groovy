@@ -1,8 +1,11 @@
-package com.ofg.decisionmaker
+package com.ofg.decisionmaker.boundary
+
+import com.ofg.decisionmaker.boundary.LoanApplicationInfo
 import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.util.logging.Slf4j
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -13,19 +16,19 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT
 
 @Slf4j
 @RestController
-@RequestMapping('/decide')
-@Api(value = "loanApplication", description = "Get a decision wheter an application is risky or not")
+@RequestMapping('/api')
+@Api(value = "loanApplication", description = "Get a decision if an application is risky or not")
 class DecisionController {
 
     @RequestMapping(
-            value = '{loanApplication}',
+            value = '/loanApplication/{loanApplicationId}',
             method = PUT,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Deciding whether an applicaton is risky or not",
+    @ApiOperation(value = "Deciding if an applicaton is risky or not",
             notes = "Will check deciding whether an applicaton is risky or not ")
-    String decide(@RequestBody @NotNull String applicationInfo) {
-        return null
+    void decide(@PathVariable @NotNull Long loanApplicationId, @ModelAttribute @NotNull LoanApplicationInfo applicationInfo) {
+
     }
 
 }
