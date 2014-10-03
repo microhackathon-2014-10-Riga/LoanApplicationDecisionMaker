@@ -1,13 +1,12 @@
 package com.ofg.decisionmaker.boundary
-
 import com.ofg.decisionmaker.LoanApplicationParams
 import com.ofg.decisionmaker.rules.DecisionMaker
 import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -36,7 +35,7 @@ class DecisionController {
             produces = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Deciding if an applicaton is risky or not",
             notes = "Will check deciding whether an applicaton is risky or not ")
-    void decide(@PathVariable @NotNull Long loanApplicationId, @ModelAttribute @NotNull LoanApplicationParams applicationInfo) {
+    void decide(@PathVariable @NotNull Long loanApplicationId, @RequestBody @NotNull LoanApplicationParams applicationInfo) {
         boolean result = decisionMaker.canApply(applicationInfo, loanApplicationId)
         log.info("application $loanApplicationId risk evaluation result. Can apply: $result")
     }
