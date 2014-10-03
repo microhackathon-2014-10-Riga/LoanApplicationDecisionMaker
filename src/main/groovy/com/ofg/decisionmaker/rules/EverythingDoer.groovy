@@ -3,10 +3,12 @@ import com.ofg.decisionmaker.LoanApplicationParams
 import com.ofg.decisionmaker.domain.DecisionResult
 import com.ofg.decisionmaker.domain.DecisionResultRepository
 import com.ofg.infrastructure.web.resttemplate.fluent.ServiceRestClient
+import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
+@TypeChecked
 class EverythingDoer {
 
     private final Collection<Rule> rules
@@ -49,7 +51,7 @@ class EverythingDoer {
                 .ofType(String)
     }
 
-    private String propagateToMarketing(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
+    private String propagateToMarketing(String applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
         serviceRestClient.forService("marketing-offer-generator")
                 .post()
                 .onUrl("/marketing/$applicationId")
@@ -64,7 +66,7 @@ class EverythingDoer {
                 .ofType(String)
     }
 
-    public DecisionResult checkDecision(Long applicationId) {
+    public DecisionResult checkDecision(String applicationId) {
         return decisionResultRepository.findByApplicationId(applicationId)
     }
 }
