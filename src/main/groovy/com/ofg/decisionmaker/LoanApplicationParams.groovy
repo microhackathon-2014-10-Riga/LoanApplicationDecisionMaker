@@ -7,8 +7,8 @@ import groovy.transform.ToString
 @PackageScope
 @CompileStatic
 @ToString
-class LoanApplicationInfo {
-    
+class LoanApplicationParams {
+
     String firstName
     String lastName
     String job

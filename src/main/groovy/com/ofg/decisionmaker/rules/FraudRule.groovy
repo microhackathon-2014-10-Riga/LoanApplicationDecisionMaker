@@ -1,6 +1,6 @@
 package com.ofg.decisionmaker.rules
 
-import com.ofg.decisionmaker.LoanApplicationInfo
+import com.ofg.decisionmaker.LoanApplicationParams
 import groovy.transform.PackageScope
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 class FraudRule implements Rule {
     
     @Override
-    boolean canApply(LoanApplicationInfo applicationInfo) {
+    boolean canApply(LoanApplicationParams applicationInfo) {
         return applicationInfo.fraudStatus != 'FRAUD'
     }
 }

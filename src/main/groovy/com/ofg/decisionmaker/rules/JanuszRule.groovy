@@ -1,6 +1,6 @@
 package com.ofg.decisionmaker.rules
 
-import com.ofg.decisionmaker.LoanApplicationInfo
+import com.ofg.decisionmaker.LoanApplicationParams
 import groovy.transform.PackageScope
 import org.springframework.stereotype.Component
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class JanuszRule implements Rule {
 
     @Override
-    boolean canApply(LoanApplicationInfo loanApplicationInfo) {
+    boolean canApply(LoanApplicationParams loanApplicationInfo) {
         return loanApplicationInfo.firstName != 'Janusz'
     }
 }

@@ -19,7 +19,7 @@ public class DecisionResult {
     private Boolean result;
 
     @Id
-    @GeneratedValue(generator = "DECISION_RESULTS_SEQ", strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 

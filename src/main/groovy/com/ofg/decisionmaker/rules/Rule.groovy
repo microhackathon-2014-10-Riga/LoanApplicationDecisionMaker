@@ -1,9 +1,9 @@
 package com.ofg.decisionmaker.rules
 
-import com.ofg.decisionmaker.LoanApplicationInfo
+import com.ofg.decisionmaker.LoanApplicationParams
 import groovy.transform.PackageScope
 
 @PackageScope
 interface Rule {
-    boolean canApply(LoanApplicationInfo applicationInfo)
+    boolean canApply(LoanApplicationParams applicationInfo)
 }
