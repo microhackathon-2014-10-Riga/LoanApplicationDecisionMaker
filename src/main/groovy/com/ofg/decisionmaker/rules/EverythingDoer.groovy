@@ -1,5 +1,4 @@
 package com.ofg.decisionmaker.rules
-
 import com.ofg.decisionmaker.LoanApplicationParams
 import com.ofg.decisionmaker.domain.DecisionResult
 import com.ofg.decisionmaker.domain.DecisionResultRepository
@@ -8,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class DecisionMaker {
+class EverythingDoer {
 
     private final Collection<Rule> rules
     private final DecisionResultRepository decisionResultRepository
     private final ServiceRestClient serviceRestClient
 
     @Autowired
-    DecisionMaker(Collection<Rule> rules, DecisionResultRepository decisionResultRepository, ServiceRestClient serviceRestClient) {
+    EverythingDoer(Collection<Rule> rules, DecisionResultRepository decisionResultRepository, ServiceRestClient serviceRestClient) {
         this.serviceRestClient = serviceRestClient
         this.rules = rules
         this.decisionResultRepository = decisionResultRepository
@@ -63,5 +62,9 @@ class DecisionMaker {
                     }""")
                 .anObject()
                 .ofType(String)
+    }
+
+    public DecisionResult checkDecision(Long applicationId) {
+        return decisionResultRepository.findByApplicationId(applicationId)
     }
 }
