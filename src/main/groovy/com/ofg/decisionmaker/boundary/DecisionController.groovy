@@ -1,9 +1,11 @@
 package com.ofg.decisionmaker.boundary
 
 import com.ofg.decisionmaker.LoanApplicationInfo
+import com.ofg.decisionmaker.rules.DecisionMaker
 import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.util.logging.Slf4j
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,6 +22,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT
 @Api(value = "loanApplication", description = "Get a decision if an application is risky or not")
 class DecisionController {
 
+    private final DecisionMaker decisionMaker
+
+    @Autowired
+    DecisionController(DecisionMaker decisionMaker) {
+        this.decisionMaker = decisionMaker
+    }
+
     @RequestMapping(
             value = '/loanApplication/{loanApplicationId}',
             method = PUT,
@@ -28,7 +37,9 @@ class DecisionController {
     @ApiOperation(value = "Deciding if an applicaton is risky or not",
             notes = "Will check deciding whether an applicaton is risky or not ")
     void decide(@PathVariable @NotNull Long loanApplicationId, @ModelAttribute @NotNull LoanApplicationInfo applicationInfo) {
-
+        log.info(applicationInfo.toString())
+        boolean result = decisionMaker.canApply(applicationInfo)
+        log.info("application $loanApplicationId is risky: $result")
     }
 
 }
