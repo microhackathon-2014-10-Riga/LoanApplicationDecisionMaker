@@ -3,6 +3,7 @@ package com.ofg.decisionmaker.rules
 import com.ofg.decisionmaker.LoanApplicationParams
 import com.ofg.decisionmaker.domain.DecisionResult
 import com.ofg.decisionmaker.domain.DecisionResultRepository
+import com.ofg.infrastructure.web.resttemplate.fluent.ServiceRestClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -11,9 +12,11 @@ class DecisionMaker {
 
     private final Collection<Rule> rules
     private final DecisionResultRepository decisionResultRepository
+    private final ServiceRestClient serviceRestClient
 
     @Autowired
-    DecisionMaker(Collection<Rule> rules, DecisionResultRepository decisionResultRepository) {
+    DecisionMaker(Collection<Rule> rules, DecisionResultRepository decisionResultRepository, ServiceRestClient serviceRestClient) {
+        this.serviceRestClient = serviceRestClient
         this.rules = rules
         this.decisionResultRepository = decisionResultRepository
     }
@@ -27,5 +30,12 @@ class DecisionMaker {
             decisionResult = new DecisionResult(result: result, applicationId: applicationId)
         }
         decisionResultRepository.save(decisionResult)
+        serviceRestClient.forService("marketing-offer-generator")
+                .post()
+                .onUrl("/marketing/$applicationId")
+                .body("TODO")
+                .anObject()
+                .ofType(String)
+        return result
     }
 }
