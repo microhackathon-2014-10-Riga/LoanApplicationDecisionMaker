@@ -1,16 +1,12 @@
 package com.ofg.decisionmaker.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "DECISION_RESULTS")
@@ -19,6 +15,7 @@ import org.hibernate.annotations.OptimisticLocking;
 @BatchSize(size = 10)
 public class DecisionResult {
 
+    @JsonIgnore
     private String applicationId;
 
     private Boolean result;
@@ -26,6 +23,7 @@ public class DecisionResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
+    @JsonIgnore
     private Long id;
 
     public Long getId() {
