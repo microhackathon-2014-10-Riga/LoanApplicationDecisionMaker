@@ -38,7 +38,7 @@ class DecisionController {
     @ApiOperation(value = "Deciding if an applicaton is risky or not",
             notes = "Will check deciding whether an applicaton is risky or not ")
     void decide(@PathVariable @NotNull Long loanApplicationId, @RequestBody @NotNull LoanApplicationParams applicationInfo) {
-        boolean result = everythinDoer.canApply(applicationInfo, loanApplicationId)
+        boolean result = everythinDoer.doTheJob(applicationInfo, loanApplicationId)
         log.info("application $loanApplicationId risk evaluation result. Can apply: $result")
     }
 
