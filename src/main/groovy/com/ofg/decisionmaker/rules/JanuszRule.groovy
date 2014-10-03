@@ -2,8 +2,10 @@ package com.ofg.decisionmaker.rules
 
 import com.ofg.decisionmaker.LoanApplicationInfo
 import groovy.transform.PackageScope
+import org.springframework.stereotype.Component
 
 @PackageScope
+@Component
 class JanuszRule implements Rule {
 
     @Override

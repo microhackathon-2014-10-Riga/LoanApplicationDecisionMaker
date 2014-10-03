@@ -39,7 +39,7 @@ class DecisionController {
     void decide(@PathVariable @NotNull Long loanApplicationId, @ModelAttribute @NotNull LoanApplicationInfo applicationInfo) {
         log.info(applicationInfo.toString())
         boolean result = decisionMaker.canApply(applicationInfo)
-        log.info("application $loanApplicationId is risky: $result")
+        log.info("application $loanApplicationId risk evaluation result: $result")
     }
 
 }
