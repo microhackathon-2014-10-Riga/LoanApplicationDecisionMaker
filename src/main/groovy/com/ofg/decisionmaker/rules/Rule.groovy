@@ -5,6 +5,4 @@ import groovy.transform.PackageScope
 @PackageScope
 interface Rule {
 
-
-
 }

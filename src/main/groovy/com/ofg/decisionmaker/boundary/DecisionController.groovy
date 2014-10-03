@@ -1,6 +1,6 @@
 package com.ofg.decisionmaker.boundary
 
-import com.ofg.decisionmaker.boundary.LoanApplicationInfo
+import com.ofg.decisionmaker.LoanApplicationInfo
 import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.util.logging.Slf4j
