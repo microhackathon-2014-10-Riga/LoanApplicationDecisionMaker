@@ -1,6 +1,7 @@
 package com.ofg.decisionmaker.boundary
 import com.ofg.decisionmaker.LoanApplicationParams
 import com.ofg.decisionmaker.domain.DecisionResult
+import com.ofg.decisionmaker.matrix.JanuszProbabilityMetrics
 import com.ofg.decisionmaker.rules.EverythingDoer
 import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
@@ -25,9 +26,12 @@ class DecisionController {
 
     private final EverythingDoer everythinDoer
 
+    JanuszProbabilityMetrics januszProbabilityMetrics;
+
     @Autowired
-    DecisionController(EverythingDoer decisionMaker) {
+    DecisionController(EverythingDoer decisionMaker, JanuszProbabilityMetrics januszProbabilityMetrics) {
         this.everythinDoer = decisionMaker
+        this.januszProbabilityMetrics = januszProbabilityMetrics
     }
 
     @RequestMapping(
@@ -39,6 +43,12 @@ class DecisionController {
             notes = "Will check deciding whether an applicaton is risky or not ")
     void decide(@PathVariable @NotNull Long loanApplicationId, @RequestBody @NotNull LoanApplicationParams applicationInfo) {
         boolean result = everythinDoer.doTheJob(applicationInfo, loanApplicationId)
+        if (applicationInfo.firstName) {
+            januszProbabilityMetrics.update(true)
+        }
+        else {
+            januszProbabilityMetrics.update(false)
+        }
         log.info("application $loanApplicationId risk evaluation result. Can apply: $result")
     }
 
