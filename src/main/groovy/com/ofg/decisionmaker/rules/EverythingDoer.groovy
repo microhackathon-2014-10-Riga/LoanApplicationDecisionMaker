@@ -53,7 +53,7 @@ class EverythingDoer {
 
     private String propagateToMarketing(String applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
         serviceRestClient.forService("marketing-offer-generator")
-                .post()
+                .put()
                 .onUrl("/marketing/$applicationId")
                 .body("""{
                         "person" : {
