@@ -30,12 +30,38 @@ class DecisionMaker {
             decisionResult = new DecisionResult(result: result, applicationId: applicationId)
         }
         decisionResultRepository.save(decisionResult)
-        serviceRestClient.forService("marketing-offer-generator")
+        propagateToMarketing(applicationId, loanApplicationInfo, result)
+        propagateToReporting(applicationId, loanApplicationInfo, result)
+        return result
+    }
+
+    private String propagateToReporting(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
+        serviceRestClient.forService("reporting-service")
                 .post()
                 .onUrl("/marketing/$applicationId")
-                .body("TODO")
+                .body("""{
+                    "loanId" : "$applicationId}",
+                    "job" : "${loanApplicationInfo.job}",
+                    "amount" : ${loanApplicationInfo.amount},
+                    "fraudStatus" : "${loanApplicationInfo.fraudStatus}",
+                    "decision" : "$result"
+                }""")
                 .anObject()
                 .ofType(String)
-        return result
+    }
+
+    private String propagateToMarketing(long applicationId, LoanApplicationParams loanApplicationInfo, boolean result) {
+        serviceRestClient.forService("marketing-offer-generator")
+                .post()
+                .onUrl("/reporting")
+                .body("""{
+                        "person" : {
+                        "firstName" : "${loanApplicationInfo.firstName}",
+                        "lastName" : "${loanApplicationInfo.lastName}"
+                         },
+                     "decision" : "$result"
+                    }""")
+                .anObject()
+                .ofType(String)
     }
 }
