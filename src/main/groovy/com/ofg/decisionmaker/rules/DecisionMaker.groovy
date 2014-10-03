@@ -1,6 +1,6 @@
 package com.ofg.decisionmaker.rules
 
-class DecisionService {
+class DecisionMaker {
     void decide() {
     }
 }
