@@ -47,8 +47,8 @@ class DecisionController {
             method = GET,
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Deciding if an applicaton is risky or not",
-            notes = "Will check deciding whether an applicaton is risky or not ")
+    @ApiOperation(value = "the same as above",
+            notes = "but better ")
     DecisionResult checkDecision(@PathVariable @NotNull Long loanApplicationId) {
 
         DecisionResult result = everythinDoer.checkDecision(loanApplicationId)
