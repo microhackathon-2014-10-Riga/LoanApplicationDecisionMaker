@@ -43,12 +43,7 @@ class DecisionController {
             notes = "Will check deciding whether an applicaton is risky or not ")
     void decide(@PathVariable @NotNull String loanApplicationId, @RequestBody @NotNull LoanApplicationParams applicationInfo) {
         boolean result = everythinDoer.doTheJob(applicationInfo, loanApplicationId)
-        if (applicationInfo.firstName) {
-            januszProbabilityMetrics.update(true)
-        }
-        else {
-            januszProbabilityMetrics.update(false)
-        }
+        januszProbabilityMetrics.update(applicationInfo.firstName.equalsIgnoreCase('janusz'))
         log.info("application $loanApplicationId risk evaluation result. Can apply: $result")
     }
 

@@ -10,6 +10,6 @@ class JanuszRule implements Rule {
 
     @Override
     boolean canApply(LoanApplicationParams loanApplicationInfo) {
-        return loanApplicationInfo.firstName != 'Janusz'
+        return !loanApplicationInfo.firstName.equalsIgnoreCase('janusz')
     }
 }
