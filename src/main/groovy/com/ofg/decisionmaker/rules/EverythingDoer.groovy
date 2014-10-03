@@ -41,7 +41,7 @@ class EverythingDoer {
                 .post()
                 .onUrl("/reporting")
                 .body("""{
-                    "loanId" : "$applicationId}",
+                    "loanId" : "$applicationId",
                     "job" : "${loanApplicationInfo.job}",
                     "amount" : ${loanApplicationInfo.amount},
                     "fraudStatus" : "${loanApplicationInfo.fraudStatus}",
